@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import styles from "./foodDetails.module.css";
 export default function FoodDetails({ foodId }) {
   const [food, setFood] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -16,32 +16,38 @@ export default function FoodDetails({ foodId }) {
   }, [foodId]);
   return (
     <div>
-      <div>
-        <h1>{food.title}</h1>
-        <img src={food.image} alt="" />
-        <div>
+      <div className={styles.recipeCard}>
+        <h1 className={styles.recipeName}>{food.title}</h1>
+        <img className={styles.recipeImage} src={food.image} alt="" />
+        <div className={styles.recipeDetails}>
           <span>
             <strong>⏱️{food.readtInMinutes} Minutes</strong>
           </span>
           <span>
             👨‍👩‍👧‍👦<strong>Serves {food.servings}</strong>
           </span>
-          <span>{food.vegetarian ? "🥕Vegetarian" : "🍖Non-Vegetarian"}</span>
-          <span>{food.vegan ? " 🐮 Vegen" : ""}</span>
+          <span>
+            <strong>
+              {food.vegetarian ? "🥕Vegetarian" : "🍖Non-Vegetarian"}
+            </strong>
+          </span>
+          <span>
+            <strong>{food.vegan ? " 🐮 Vegen" : ""}</strong>
+          </span>
         </div>
         <div>
           $ <span>{food.pricePerServing / 100} Per servig</span>
         </div>
         <h2>Instructions</h2>
-        <div>
+        <div className={styles.recipeInstructions}>
           <ol>
-          {isLoading ? (
-            <p>Loading...</p>
-          ) : (
-            food.analyzedInstructions[0].steps.map((step) => (
-              <li>{step.step}</li>
-            ))
-          )}
+            {isLoading ? (
+              <p>Loading...</p>
+            ) : (
+              food.analyzedInstructions[0].steps.map((step) => (
+                <li>{step.step}</li>
+              ))
+            )}
           </ol>
         </div>
       </div>
